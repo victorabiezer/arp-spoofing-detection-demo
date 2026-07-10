@@ -93,5 +93,12 @@ running three scripts across three terminal windows at once got confusing more t
 
 ## citations
 
-- Kurose, J.F. & Ross, K.W. *Computer Networking: A Top-Down Approach* (9th ed.), 2026. Section 6.4, Switched Local Area Networks (Addressing, ARP, Ethernet, VLANs). Section 6.1, Introduction to the Link Layer.
-- Scapy documentation, used for ARP packet crafting and sniffing: https://scapy.readthedocs.io
+- Kurose, J.F. & Ross, K.W. Computer Networking: A Top-Down Approach (9th ed.), 2026. Section 6.1, Introduction to the Link Layer; Section 6.4, Switched Local Area Networks (Addressing, ARP, Ethernet, Virtual LANs).
+- Scapy Project. Scapy documentation, used as reference for ARP packet construction and packet sniffing. https://scapy.readthedocs.io
+- Pallets Projects. Flask Documentation, referenced for setting up the local dashboard server and its /stream route. https://flask.palletsprojects.com 
+- flask-cors Documentation, referenced for enabling cross-origin requests so the browser dashboard could connect to the local Flask server. https://flask-cors.readthedocs.io/en/latest/ 
+- Tcpdump/Libpcap Project. tcpdump man page, referenced for capturing and filtering live packet traffic during testing. https://www.tcpdump.org 
+- MDN Web Docs. Server-Sent Events, referenced for streaming live detector alerts from the Flask server to the browser dashboard. https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events 
+- UTM Documentation, referenced for configuring VM networking modes (Bridged vs. Shared). https://docs.getutm.app 
+<img width="468" height="337" alt="image" src="https://github.com/user-attachments/assets/294389e5-949c-4e3d-95a4-cb5672ee601e" />
+
