@@ -16,6 +16,8 @@ this project shows the vulnerability, then shows a real, working defense against
 
 ## the scenario
 
+![Uploading hotel_scenario.png…]()
+
 imagine a small hotel lobby with a shared wifi network for guests and staff (a common real-world mistake). the lobby has a smart TV (the Apple TV) for guest use. a "guest" sitting in the lobby with a laptop performs an ARP spoofing attack, positioning themselves between the TV and the router, and can now see its traffic. this is why hotels, cafes, and offices should never mix guest and internal networks without protection. the "IT consultant" then patches the vulnerability with a live detection tool.
 
 ## project structure
