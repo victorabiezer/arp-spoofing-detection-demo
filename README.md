@@ -1,6 +1,6 @@
 CSCI4345 Network Application Project, Summer I 2026 UTRGV
 
-(see SCREENSHOTS for a step-by-step) 
+(see SCREENSHOTS FOLDER for a step-by-step) 
 
 ## what this is
 
