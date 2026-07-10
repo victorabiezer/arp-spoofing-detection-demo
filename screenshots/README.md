@@ -6,7 +6,7 @@ Documented proof for each stage of the project, in order.
 
 Confirms the target device's real IP and MAC address, pulled directly from the Apple TV's own settings screen.
 
-01_apple_tv_network_info.png 
+<img width="1920" height="1080" alt="01_apple_tv_network_info" src="https://github.com/user-attachments/assets/a777d428-f8a8-47f0-a277-fbf0b84dbeba" />
 
 ## 2. VM switched to Bridged networking
 
