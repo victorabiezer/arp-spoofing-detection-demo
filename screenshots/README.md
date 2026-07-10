@@ -41,6 +41,6 @@ The live browser dashboard successfully connected to the detector feed, showing 
 ## 7. Dashboard reacting to the attack live
 
 The dashboard mid-attack: status flips to "compromised," the Apple TV and router rows flip to "spoofed," and a plain-english explanation appears in the live feed.
-<img width="1920" height="1080" alt="07_dashboard_compromised" src="https://github.com/user-attachments/assets/bfe31d2c-748c-413a-b1ca-e29700b26310" />
+<img width="1920" height="1080" alt="07_pre_dashboard_compromised" src="https://github.com/user-attachments/assets/083d35ee-8c95-4132-9373-b86251a18b2b" />
 
 <img width="1920" height="1080" alt="07_dashboard_compromised" src="https://github.com/user-attachments/assets/355f19dd-50e7-407c-9b53-f5f89ea70444" />
