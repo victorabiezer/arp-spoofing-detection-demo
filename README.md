@@ -100,5 +100,4 @@ running three scripts across three terminal windows at once got confusing more t
 - Tcpdump/Libpcap Project. tcpdump man page, referenced for capturing and filtering live packet traffic during testing. https://www.tcpdump.org 
 - MDN Web Docs. Server-Sent Events, referenced for streaming live detector alerts from the Flask server to the browser dashboard. https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events 
 - UTM Documentation, referenced for configuring VM networking modes (Bridged vs. Shared). https://docs.getutm.app 
-<img width="468" height="337" alt="image" src="https://github.com/user-attachments/assets/294389e5-949c-4e3d-95a4-cb5672ee601e" />
 
