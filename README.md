@@ -1,4 +1,4 @@
-# ARP Spoofing Demo + Live Detection Dashboard
+<img width="1536" height="1024" alt="hotel_scenario" src="https://github.com/user-attachments/assets/07d63f3c-167b-4106-8b62-0d1dc4c88926" /># ARP Spoofing Demo + Live Detection Dashboard
 
 CSCI4345 Network Application Project, Summer I 2026 UTRGV
 
@@ -16,7 +16,7 @@ this project shows the vulnerability, then shows a real, working defense against
 
 ## the scenario
 
-![Uploading hotel_scenario.png…]()
+<img width="1536" height="1024" alt="hotel_scenario" src="https://github.com/user-attachments/assets/d34c57b7-e79d-4a9b-9863-ac02a05023b7" />
 
 imagine a small hotel lobby with a shared wifi network for guests and staff (a common real-world mistake). the lobby has a smart TV (the Apple TV) for guest use. a "guest" sitting in the lobby with a laptop performs an ARP spoofing attack, positioning themselves between the TV and the router, and can now see its traffic. this is why hotels, cafes, and offices should never mix guest and internal networks without protection. the "IT consultant" then patches the vulnerability with a live detection tool.
 
