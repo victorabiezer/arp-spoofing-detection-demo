@@ -1,5 +1,3 @@
-<img width="1536" height="1024" alt="hotel_scenario" src="https://github.com/user-attachments/assets/07d63f3c-167b-4106-8b62-0d1dc4c88926" /># ARP Spoofing Demo + Live Detection Dashboard
-
 CSCI4345 Network Application Project, Summer I 2026 UTRGV
 
 ## what this is
