@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>arp watch dashboard</title>
+<style>
+  body {
+    background: #0c0c0c;
+    color: #d4d4d4;
+    font-family: 'Menlo', 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    font-size: 13px;
+  }
+  .prompt {
+    color: #6a9955;
+    margin-bottom: 2px;
+  }
+  h1 {
+    font-size: 13px;
+    font-weight: normal;
+    color: #d4d4d4;
+    margin: 0 0 16px 0;
+  }
+  h1::before { content: "$ "; color: #6a9955; }
+  .section-label {
+    color: #6a9955;
+    font-size: 11px;
+    text-transform: lowercase;
+    margin: 20px 0 6px 0;
+  }
+  .section-label::before { content: "# "; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #2a2a2a;
+  }
+  th, td {
+    text-align: left;
+    padding: 6px 10px;
+    border: 1px solid #2a2a2a;
+    font-size: 12px;
+  }
+  th {
+    color: #6a9955;
+    font-weight: normal;
+  }
+  td { color: #d4d4d4; }
+  td.status-ok { color: #6a9955; }
+  td.status-bad { color: #f14c4c; }
+  .stats-line {
+    display: flex;
+    gap: 24px;
+    padding: 10px 0;
+    border-top: 1px solid #2a2a2a;
+    border-bottom: 1px solid #2a2a2a;
+    margin: 16px 0;
+  }
+  .stat span { color: #6a9955; }
+  .stat.alert span { color: #f14c4c; }
+  #console {
+    border: 1px solid #2a2a2a;
+    padding: 10px;
+    height: 240px;
+    overflow-y: auto;
+  }
+  .line { white-space: pre-wrap; word-break: break-word; line-height: 1.6; }
+  .line.info { color: #6b6b6b; }
+  .line.learned { color: #9cdcfe; }
+  .line.alert { color: #f14c4c; }
+  .explain {
+    color: #f14c4c;
+    padding: 2px 0 8px 16px;
+    font-size: 12px;
+  }
+  .explain::before { content: "> "; color: #6b6b6b; }
+</style>
+</head>
+<body>
+
+<h1>arp_watch --dashboard</h1>
+
+<div class="section-label">connection</div>
+<div id="connStatus" style="color:#6b6b6b;">connecting to detector feed...</div>
+
+<div class="stats-line">
+  <div class="stat"><span id="deviceCount">0</span> devices tracked</div>
+  <div class="stat" id="alertStat"><span id="alertCount">0</span> alerts detected</div>
+  <div class="stat" id="netStat">status: <span id="netStatus">nominal</span></div>
+</div>
+
+<div class="section-label">known devices</div>
+<table>
+  <tr><th>role</th><th>ip</th><th>mac</th><th>status</th></tr>
+  <tr id="row-apple-tv">
+    <td>apple tv (sala)</td>
+    <td>192.168.125.60</td>
+    <td>c4:f7:c1:**:**:**</td>
+    <td class="status-ok" id="status-apple-tv">normal</td>
+  </tr>
+  <tr id="row-router">
+    <td>router / gateway</td>
+    <td>192.168.125.1</td>
+    <td>04:bc:9f:**:**:**</td>
+    <td class="status-ok" id="status-router">normal</td>
+  </tr>
+  <tr id="row-attacker">
+    <td>attacker vm</td>
+    <td>192.168.125.23</td>
+    <td>1a:63:23:**:**:**</td>
+    <td class="status-ok" id="status-attacker">normal</td>
+  </tr>
+</table>
+
+<div class="section-label">live feed</div>
+<div id="console"></div>
+
+<script>
+const consoleEl = document.getElementById('console');
+const connStatus = document.getElementById('connStatus');
+const deviceCountEl = document.getElementById('deviceCount');
+const alertCountEl = document.getElementById('alertCount');
+const alertStatEl = document.getElementById('alertStat');
+const netStatusEl = document.getElementById('netStatus');
+const statusAppleTv = document.getElementById('status-apple-tv');
+const statusRouter = document.getElementById('status-router');
+const statusAttacker = document.getElementById('status-attacker');
+
+let deviceCount = 0;
+let alertCount = 0;
+
+function addLine(type, text) {
+  const div = document.createElement('div');
+  div.className = 'line ' + type;
+  div.textContent = text;
+  consoleEl.appendChild(div);
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+function addExplain(text) {
+  const div = document.createElement('div');
+  div.className = 'explain';
+  div.textContent = text;
+  consoleEl.appendChild(div);
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+function flagCompromised() {
+  statusAppleTv.textContent = 'spoofed';
+  statusAppleTv.className = 'status-bad';
+  statusRouter.textContent = 'spoofed';
+  statusRouter.className = 'status-bad';
+  statusAttacker.textContent = 'active';
+  statusAttacker.className = 'status-bad';
+  netStatusEl.textContent = 'compromised';
+  netStatusEl.style.color = '#f14c4c';
+  alertStatEl.className = 'stat alert';
+}
+
+function connectStream() {
+  const evtSource = new EventSource('http://192.168.125.23:5000/stream');
+
+  evtSource.onopen = function() {
+    connStatus.textContent = 'connected, watching live traffic';
+    connStatus.style.color = '#6a9955';
+  };
+
+  evtSource.onerror = function() {
+    connStatus.textContent = 'connection lost, retrying...';
+    connStatus.style.color = '#f14c4c';
+  };
+
+  evtSource.onmessage = function(event) {
+    try {
+      const entry = JSON.parse(event.data);
+      const line = '[' + entry.time + '] ' + entry.message;
+
+      if (entry.type === 'learned') {
+        deviceCount++;
+        deviceCountEl.textContent = deviceCount;
+        addLine('learned', line);
+      } else if (entry.type === 'alert') {
+        alertCount++;
+        alertCountEl.textContent = alertCount;
+        addLine('alert', line);
+        addExplain('a device just claimed to be someone it is not, this is the core of arp spoofing, traffic meant for the router or apple tv gets rerouted to the attacker instead.');
+        flagCompromised();
+      } else {
+        addLine('info', line);
+      }
+    } catch (e) {
+      addLine('info', event.data);
+    }
+  };
+}
+
+connectStream();
+</script>
+
+</body>
+</html>
