@@ -1,5 +1,7 @@
 CSCI4345 Network Application Project, Summer I 2026 UTRGV
 
+(see SCREENSHOTS for a step-by-step) 
+
 ## what this is
 
 this project demonstrates an ARP spoofing (man-in-the-middle) attack against a real device on my home network, then builds a detector that catches the attack live, and finally a browser dashboard that shows the whole thing happening in real time in plain english.
@@ -41,7 +43,7 @@ passively sniffs ARP traffic and remembers which MAC address belongs to which IP
 **the dashboard (`dashboard_server.py` + `dashboard.html`)**
 the server watches the detector's log file and streams new lines out to the browser the moment they happen (using server-sent events). the dashboard itself is styled to look like a structured terminal view, it's not replacing the real terminal output, it's a second, more readable way to watch the same real data live. when an alert comes through, the affected devices flip from "normal" to "spoofed" and a plain-english explanation shows up under the alert.
 
-## how to run it
+## how to run it 
 
 1. get the real MAC addresses for your target device and gateway (see "finding MAC addresses" below)
 2. fill those into `arp_spoof_public.py` in place of the masked values
